@@ -1,0 +1,42 @@
+# Example answer file for setup-alpine script
+# If you don't want to use a certain option, then comment it out
+
+# Use US layout with US variant
+KEYMAPOPTS="us us-euro"
+
+# Set hostname to alpine-test
+HOSTNAMEOPTS="-n rp4"
+
+# Contents of /etc/network/interfaces
+INTERFACESOPTS="auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+    hostname rp4
+"
+
+# Search domain of example.com, Google public nameserver
+#DNSOPTS="-d example.com 8.8.8.8"
+
+# Set timezone to UTC
+TIMEZONEOPTS="-z Europe/Amsterdam"
+
+# set http/ftp proxy
+PROXYOPTS="none"
+
+# Add a random mirror
+APKREPOSOPTS="-r"
+
+# Install Openssh
+SSHDOPTS="-c openssh"
+
+# Use openntpd/dev/mmcblk0p1
+NTPOPTS="-c openntpd"
+
+# Use /dev/sda as a data disk
+DISKOPTS="-m data /dev/mmcblk0"
+
+# Setup in /media/sdb1
+LBUOPTS="/dev/mmcblk0p1"
+APKCACHEOPTS="/dev/mmcblk0p1/cache"
