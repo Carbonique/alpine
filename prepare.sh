@@ -1,15 +1,12 @@
 #!/bin/sh
 
 print_sfdisk() {
-  echo
-  echo "********************************************************"
-  echo
+  echo "\n********************************************************\n"
 
-  sfdisk $SD -l
 
-  echo
-  echo "********************************************************"
-  echo
+sfdisk $SD -l
+
+  echo "\n********************************************************\n"
 }
 
 check_if_yes() {
@@ -22,12 +19,17 @@ check_if_yes() {
 MOUNTDIR=/mnt/sd
 SD=$1
 
+if [ -z "$1" ]
+then
+      echo "Please add path to your sd card as the first parameter (e.g. ./prepare.sh /dev/sda)"
+      exit
+fi
+
 print_sfdisk
 
 echo
 read -p "Warning, check above info. Are you sure $SD is the correct device to use? All data wil be wiped. (y/n) " CONT
 echo
-
 check_if_yes $CONT
 
 print_sfdisk
@@ -66,8 +68,7 @@ echo "Mount directory created. Coying files now"
 cp headless.apkovl.tar.gz $MOUNTDIR
 cp wpa_supplicant.conf $MOUNTDIR
 
-echo
-echo "Unpacking tar.gz"
+echo "\nUnpacking tar.gz"
 tar xvfz alpine-rpi-3.17.1-aarch64.tar.gz -C $MOUNTDIR
-echo
-echo "Unpacking done. You can unmount the sd card now at $MOUNTDIR"
+
+echo "\nUnpacking done. You can unmount the sd card now at $MOUNTDIR"
